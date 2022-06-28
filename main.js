@@ -5,6 +5,13 @@ const pokemon = [
 ]
 
 const containerDiv = document.querySelector('#container')
+const newBtn = document.querySelector('#new-pokemon-btn')
+const rosterDiv = document.querySelector('#roster')
+
+newBtn.addEventListener('click', () => {
+    let num = prompt('ENTER A POKEMON NUMBER')
+    console.log('Number Entered', num)
+})
 
 // DOM = Document Object Model
 // loop over every ID 
@@ -19,8 +26,18 @@ pokemon.map((element, index) => {
     let h3 = document.createElement('h1')
     h3.innerText = element.name
     div.setAttribute('class', 'pokemon-card') // setting the class of the div
-    let img = document.createElement('img')  // vreating the img element itself
+    let img = document.createElement('img')  // Creating the img element itself
+    let audioUrl = `https://play.pokemonshowdown.com/audio/cries/${element.name.toLowerCase()}.mp3` // imputation BACKSLASH!!!
+    let audio = document.createElement('audio')
+    let source = document.createElement('source')
+    source.setAttribute('src',audioUrl)
+    source.setAttribute('type', 'audio/mpeg')
+    audio.append(source)
+    div.addEventListener('click', () => {
+        console.log('audio', audioUrl)
+        audio.play()
+    })
     img.src = imgUrl
-    div.append(img, h3)
+    div.append(img, h3, audio)
     containerDiv.append(div) // put the image in the div, then put the div in the body
 })
